@@ -7,7 +7,6 @@ import CTA from "@/components/sections/CTA";
 export default function Home() {
   return (
     <>
-      hellow
       <Hero />
       <ServicesPreview />
       <PortfolioPreview />
