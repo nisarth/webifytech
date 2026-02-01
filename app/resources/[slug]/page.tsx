@@ -56,14 +56,32 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   let htmlContent = "";
   if (rawContent) {
     htmlContent = parseMarkdown(rawContent);
-    // Resolve [LINK: page] placeholders
-    htmlContent = htmlContent
-      .replace(/\[LINK: services\]/g, '<a href="/services" class="text-[var(--accent)] hover:underline font-bold">Premier Services</a>')
-      .replace(/\[LINK: portfolio\]/g, '<a href="/portfolio" class="text-[var(--accent)] hover:underline font-bold">Success Cases</a>')
-      .replace(/\[LINK: contact\]/g, '<a href="/contact" class="text-[var(--accent)] hover:underline font-bold">Get Started</a>')
-      .replace(/\[LINK: about\]/g, '<a href="/about" class="text-[var(--accent)] hover:underline font-bold">Our Team</a>')
-      .replace(/\[LINK: resources\]/g, '<a href="/resources" class="text-[var(--accent)] hover:underline font-bold">More Insights</a>')
-      .replace(/\[LINK: home\]/g, '<a href="/" class="text-[var(--accent)] hover:underline font-bold">WebifyTech</a>');
+
+    // Dynamic Link Resolution: [LINK: slug-or-path]
+    htmlContent = htmlContent.replace(/\[LINK: (.*?)\]/g, (match, slug) => {
+      // 1. Check if it's a known blog post slug
+      const linkedPost = blogPosts.find(p => p.slug === slug);
+      if (linkedPost) {
+        return `<a href="/resources/${linkedPost.slug}" class="text-[var(--accent)] hover:underline font-bold">${linkedPost.title}</a>`;
+      }
+
+      // 2. Fallback to static pages
+      const staticPages: Record<string, { label: string, path: string }> = {
+        'services': { label: 'Premier Services', path: '/services' },
+        'portfolio': { label: 'Success Cases', path: '/portfolio' },
+        'contact': { label: 'Get Started', path: '/contact' },
+        'about': { label: 'Our Team', path: '/about' },
+        'resources': { label: 'More Insights', path: '/resources' },
+        'home': { label: 'WebifyTech', path: '/' }
+      };
+
+      if (staticPages[slug]) {
+        return `<a href="${staticPages[slug].path}" class="text-[var(--accent)] hover:underline font-bold">${staticPages[slug].label}</a>`;
+      }
+
+      // 3. Last fallback: return the slug as text if not found
+      return slug;
+    });
   }
 
   const jsonLd = {
@@ -107,7 +125,16 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   const relatedPosts = blogPosts
     .filter(p => p.slug !== post.slug)
+    .filter(p => p.category === post.category || p.secondaryKeywords.some(k => post.secondaryKeywords.includes(k)))
     .slice(0, 2);
+
+  // If we don't have enough related posts in the same category, fill with others
+  if (relatedPosts.length < 2) {
+    const others = blogPosts
+      .filter(p => p.slug !== post.slug && !relatedPosts.find(rp => rp.slug === p.slug))
+      .slice(0, 2 - relatedPosts.length);
+    relatedPosts.push(...others);
+  }
 
   return (
     <>
