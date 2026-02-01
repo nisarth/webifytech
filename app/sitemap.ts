@@ -1,50 +1,31 @@
 import { MetadataRoute } from "next";
+import { locations } from "@/data/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://webifytech.com";
+  const baseUrl = "https://webify-tech.com";
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/testimonials`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/resources`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-  ];
+  const staticPages = [
+    "",
+    "/about",
+    "/services",
+    "/portfolio",
+    "/testimonials",
+    "/resources",
+    "/contact",
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: (route === "" || route === "/portfolio" || route === "/resources" ? "weekly" : "monthly") as any,
+    priority: route === "" ? 1 : 0.8,
+  }));
+
+  const locationPages = locations.map((location) => ({
+    url: `${baseUrl}/locations/${location.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as any,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...locationPages];
 }
+

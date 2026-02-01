@@ -1,89 +1,114 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ArrowRight, TrendingUp } from "lucide-react";
+import { useState } from "react";
+
+const categories = ["All", "E-Commerce", "Web Apps", "SaaS", "Branding"];
 
 const projects = [
   {
-    title: "Luxury Fashion E-commerce",
-    category: "E-commerce",
-    description: "Premium online store with advanced filtering and checkout system",
-    image: "bg-gradient-to-br from-pink-500 to-rose-500",
-    tags: ["Next.js", "Shopify", "Stripe"],
+    title: "EcoSmart E-Commerce Platform",
+    category: "E-Commerce",
+    result: "240% Revenue Increase",
+    description: "A complete rebuild focused on Core Web Vitals and conversion optimization.",
+    image: "bg-stone-200",
   },
   {
-    title: "Tech Startup Landing",
-    category: "Web Design",
-    description: "Modern landing page with interactive animations",
-    image: "bg-gradient-to-br from-blue-500 to-cyan-500",
-    tags: ["React", "Framer Motion", "Tailwind"],
+    title: "Apex Fintech Dashboard",
+    category: "Web Apps",
+    result: "98% User Satisfaction",
+    description: "Complex data visualization simplified for retail investors.",
+    image: "bg-slate-200",
   },
   {
-    title: "Restaurant Booking Platform",
-    category: "Web App",
-    description: "Full-featured reservation system with real-time availability",
-    image: "bg-gradient-to-br from-orange-500 to-amber-500",
-    tags: ["Next.js", "PostgreSQL", "Stripe"],
+    title: "Nova Brand Identity",
+    category: "Branding",
+    result: "Global Recognition",
+    description: "Rebranding a tech giant for the modern AI-driven landscape.",
+    image: "bg-zinc-200",
   },
   {
-    title: "SaaS Dashboard",
-    category: "Web App",
-    description: "Comprehensive analytics dashboard with real-time data visualization",
-    image: "bg-gradient-to-br from-indigo-500 to-purple-500",
-    tags: ["React", "D3.js", "TypeScript"],
+    title: "CloudScale SaaS Platform",
+    category: "SaaS",
+    result: "Near-Zero Load Times",
+    description: "Scalable infrastructure for the next generation of cloud computing.",
+    image: "bg-neutral-200",
   },
   {
-    title: "Healthcare Portal",
-    category: "Web App",
-    description: "Patient management system with secure authentication",
-    image: "bg-gradient-to-br from-green-500 to-emerald-500",
-    tags: ["Next.js", "Auth0", "MongoDB"],
+    title: "Luxe Fashion Store",
+    category: "E-Commerce",
+    result: "3x Conversion Rate",
+    description: "Premium shopping experience for a high-end fashion brand.",
+    image: "bg-stone-300",
   },
   {
-    title: "Real Estate Platform",
-    category: "E-commerce",
-    description: "Property listing and booking platform with virtual tours",
-    image: "bg-gradient-to-br from-teal-500 to-cyan-500",
-    tags: ["Next.js", "Three.js", "Stripe"],
+    title: "HealthCore Patient Portal",
+    category: "Web Apps",
+    result: "Secure & Compliant",
+    description: "HIPAA-compliant patient management system for modern healthcare.",
+    image: "bg-slate-300",
   },
 ];
 
 export default function PortfolioGrid() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProjects = activeCategory === "All" 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory);
+
   return (
-    <section className="py-20 lg:py-32 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
+    <section className="section-padding bg-[var(--surface)]">
+      <div className="container mx-auto">
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-4 mb-20">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-8 py-3 rounded-full font-display font-bold text-sm uppercase tracking-widest transition-all duration-300 ${
+                activeCategory === cat 
+                ? "bg-[var(--primary)] text-[var(--accent)]" 
+                : "bg-[var(--primary)]/5 text-[var(--primary)] hover:bg-[var(--primary)]/10"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              layout
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl glass-dark cursor-pointer"
+              className="group relative bg-white rounded-[40px] border border-[var(--primary)]/5 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
             >
-              <div className={`h-64 ${project.image} relative`}>
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/60 transition-colors duration-300 flex items-center justify-center">
-                  <div className="flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <a href="#" className="w-12 h-12 glass-dark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <ExternalLink className="w-6 h-6 text-white" />
-                    </a>
-                    <a href="#" className="w-12 h-12 glass-dark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <Github className="w-6 h-6 text-white" />
-                    </a>
-                  </div>
-                </div>
+              <div className={`aspect-[4/3] ${project.image} relative overflow-hidden`}>
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <div className="p-6">
-                <span className="text-sm text-primary-400 font-medium">{project.category}</span>
-                <h3 className="text-xl font-semibold text-white mt-2 mb-2">{project.title}</h3>
-                <p className="text-white/60 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="text-xs px-3 py-1 glass-dark rounded-full text-white/70">
-                      {tag}
-                    </span>
-                  ))}
+              
+              <div className="p-10">
+                <div className="flex items-center gap-2 mb-4 bg-[var(--accent)]/10 text-[var(--primary)] px-3 py-1 rounded-full w-fit">
+                   <TrendingUp size={14} />
+                   <span className="text-[8px] font-display font-black uppercase tracking-widest">{project.result}</span>
+                </div>
+                
+                <p className="text-[10px] font-body font-bold text-[var(--accent)] uppercase tracking-[0.2em] mb-3">
+                  {project.category}
+                </p>
+                
+                <h3 className="text-2xl font-display font-bold text-[var(--primary)] mb-4">{project.title}</h3>
+                <p className="text-[var(--muted)] font-body text-sm mb-8 leading-relaxed line-clamp-2">{project.description}</p>
+                
+                <div className="inline-flex items-center gap-3 font-display font-bold text-xs uppercase tracking-widest text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors">
+                  View Study
+                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                 </div>
               </div>
             </motion.div>
@@ -93,4 +118,5 @@ export default function PortfolioGrid() {
     </section>
   );
 }
+
 

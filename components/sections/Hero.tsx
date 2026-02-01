@@ -2,96 +2,91 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Sparkles } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+    <section className="relative min-h-[95vh] flex items-center overflow-hidden pt-32 pb-20">
+      {/* Background Mesh Gradient */}
+      <div className="absolute top-0 right-0 w-2/3 h-full bg-[radial-gradient(circle_at_70%_30%,var(--accent)_0%,transparent_50%)] opacity-[0.05] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-1/2 h-full bg-[radial-gradient(circle_at_30%_70%,var(--primary)_0%,transparent_50%)] opacity-[0.03] pointer-events-none" />
+
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-7">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center space-x-2 glass-dark px-4 py-2 rounded-full mb-8"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <Sparkles className="w-4 h-4 text-primary-400" />
-              <span className="text-sm text-white/80">
-                Digital Excellence Since 2024
-              </span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--primary)]/10 bg-[var(--surface)] shadow-sm mb-8">
+                <Sparkles size={16} className="text-[var(--accent)]" />
+                <span className="text-sm font-body font-semibold tracking-wide uppercase">Premier Digital Agency</span>
+              </div>
+              
+              <h1 className="type-scale-h1 mb-8 text-[var(--primary)] tracking-tight">
+                Transform Your <span className="italic font-light">Digital Presence</span> Into <span className="text-[var(--accent)]">Real Revenue</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-[var(--muted)] mb-12 max-w-2xl font-body">
+                We build high-performance websites and e-commerce platforms that drive real growth and measurable results for your business.
+              </p>
+
+              <div className="flex flex-wrap gap-6 items-center">
+                <Link href="/contact" className="btn-primary group">
+                  Start Your Project
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href="/portfolio" className="btn-secondary group">
+                  View Case Studies
+                </Link>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
-          >
-            Transform Your{" "}
-            <span className="bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-              Digital Presence
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white/70 mb-10 max-w-2xl mx-auto"
-          >
-            We craft stunning websites and powerful e-commerce solutions that
-            drive growth and engage your audience.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link
-              href="/contact"
-              className="group px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold flex items-center space-x-2 transition-all duration-300 shadow-lg shadow-primary-500/50"
+          <div className="lg:col-span-5 relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="relative aspect-square"
             >
-              <span>Get Started</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/portfolio"
-              className="px-8 py-4 glass-dark text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
-            >
-              View Our Work
-            </Link>
-          </motion.div>
+              {/* Abstract Glass Shape */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/10 to-transparent backdrop-blur-3xl rounded-[40px] border border-white/20 shadow-2xl overflow-hidden group">
+                <div className="absolute inset-0 bg-[var(--primary)] mix-blend-overlay opacity-20" />
+                <div className="absolute inset-0 flex items-center justify-center p-12">
+                   {/* Interior content/graphic would go here */}
+                   <div className="w-full h-full border border-dashed border-[var(--primary)]/20 rounded-3xl flex items-center justify-center relative">
+                      <motion.div 
+                        animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-32 h-32 bg-[var(--accent)] rounded-full blur-2xl opacity-20 absolute top-10 right-10" 
+                      />
+                      <div className="text-center z-10">
+                        <div className="w-20 h-20 bg-[var(--primary)] rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                          <Play fill="var(--accent)" className="text-[var(--accent)] ml-1" />
+                        </div>
+                        <p className="font-display font-bold text-lg tracking-tight">Watch Our Story</p>
+                      </div>
+                   </div>
+                </div>
+              </div>
+              
+              {/* Floating Stat Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="absolute -bottom-10 -left-10 bg-[var(--surface)] p-6 rounded-2xl shadow-xl border border-[var(--primary)]/5 max-w-[200px]"
+              >
+                <p className="text-3xl font-display font-black text-[var(--accent)] mb-1">340%</p>
+                <p className="text-sm font-body font-medium text-[var(--muted)] leading-tight">Average ROI generated for our e-commerce clients</p>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-          duration: 2,
-        }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-white/60 rounded-full"
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }
+

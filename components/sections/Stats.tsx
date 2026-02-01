@@ -1,43 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 const stats = [
-  { value: "500+", label: "Projects Completed" },
-  { value: "200+", label: "Happy Clients" },
-  { value: "50+", label: "Team Members" },
-  { value: "10+", label: "Years Experience" },
+  { value: "150+", label: "Premium Projects" },
+  { value: "98%", label: "Client Satisfaction" },
+  { value: "340%", label: "Average Growth ROI" },
+  { value: "24/7", label: "Strategic Support" },
 ];
 
-function AnimatedNumber({ value, inView }: { value: string; inView: boolean }) {
-  const numValue = parseInt(value.replace(/\D/g, ""));
-  const suffix = value.replace(/\d/g, "");
-
-  return <span>{inView ? `${numValue}${suffix}` : "0"}</span>;
-}
-
 export default function Stats() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   return (
-    <section className="py-20 lg:py-32 relative" ref={ref}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <section className="py-24 bg-[var(--primary)] text-[var(--surface)] overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-6xl font-bold text-primary-400 mb-2">
-                <AnimatedNumber value={stat.value} inView={isInView} />
-              </div>
-              <div className="text-white/70 text-lg">{stat.label}</div>
+              <p className="text-4xl md:text-6xl font-display font-black text-[var(--accent)] mb-4">
+                {stat.value}
+              </p>
+              <div className="h-0.5 w-12 bg-[var(--accent)]/30 mx-auto mb-6" />
+              <p className="text-xs md:text-sm font-body font-bold uppercase tracking-[0.2em] text-[var(--surface)]/50">
+                {stat.label}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -45,4 +37,5 @@ export default function Stats() {
     </section>
   );
 }
+
 

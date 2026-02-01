@@ -3,8 +3,8 @@ import ContactForm from "@/components/sections/ContactForm";
 import ContactInfo from "@/components/sections/ContactInfo";
 
 export const metadata = {
-  title: "Contact Us - WebifyTech",
-  description: "Get in touch with WebifyTech. Let's discuss your digital transformation project.",
+  title: "Start Your Project | Contact WebifyTech",
+  description: "Ready to scale? Contact our team of experts today for a free discovery call and see how we can transform your digital presence.",
 };
 
 export default function ContactPage() {
@@ -16,4 +16,5 @@ export default function ContactPage() {
     </>
   );
 }
+
 

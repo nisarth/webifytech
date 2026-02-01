@@ -1,86 +1,101 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, TrendingUp } from "lucide-react";
 
 const testimonials = [
   {
     name: "Sarah Johnson",
-    role: "CEO, Fashion Brand",
-    company: "StyleCo",
-    content: "WebifyTech transformed our online presence. Sales increased by 300% in just 3 months! The team's attention to detail and creative solutions exceeded all our expectations.",
-    rating: 5,
-    image: "bg-gradient-to-br from-pink-500 to-rose-500",
+    role: "CEO",
+    company: "Luxe Retail",
+    content: "WebifyTech transformed our online presence. Sales increased by 300% in just 3 months! The headless commerce solution they built is a game-changer for our performance and scalability.",
+    result: "300% Sales Increase",
+    image: "bg-stone-200",
   },
   {
     name: "Michael Chen",
-    role: "Founder, Tech Startup",
-    company: "TechVenture",
-    content: "The team's attention to detail and creative solutions exceeded all our expectations. They delivered exactly what we needed, on time and within budget.",
-    rating: 5,
-    image: "bg-gradient-to-br from-blue-500 to-cyan-500",
+    role: "Founder",
+    company: "Apex Tech",
+    content: "The team's attention to detail and performance optimization is unmatched. Our core web vitals are now perfect, leading to a massive boost in our organic search rankings.",
+    result: "Perfect Core Web Vitals",
+    image: "bg-slate-200",
   },
   {
     name: "Emily Rodriguez",
     role: "Marketing Director",
-    company: "GrowthCo",
-    content: "Professional, responsive, and results-driven. Best agency we've worked with. Our conversion rates have improved significantly since launching the new site.",
-    rating: 5,
-    image: "bg-gradient-to-br from-purple-500 to-pink-500",
+    company: "Nova Brand",
+    content: "Professional, responsive, and truly results-driven. They don't just build sites; they build business growth machines. Our customer satisfaction has never been higher.",
+    result: "98% User Satisfaction",
+    image: "bg-zinc-200",
   },
   {
     name: "James Wilson",
     role: "E-commerce Manager",
     company: "RetailPro",
-    content: "The e-commerce solution they built for us is incredible. User-friendly, fast, and conversion-optimized. Our customers love it!",
-    rating: 5,
-    image: "bg-gradient-to-br from-green-500 to-emerald-500",
+    content: "The custom Shopify build outperformed our previous setup by every metric. The ROI was clear within the first 30 days of launch.",
+    result: "ROI in 30 Days",
+    image: "bg-neutral-200",
   },
   {
     name: "Lisa Anderson",
     role: "Brand Owner",
-    company: "LuxuryBrand",
-    content: "WebifyTech understood our vision perfectly and brought it to life. The design is stunning and the functionality is flawless.",
-    rating: 5,
-    image: "bg-gradient-to-br from-orange-500 to-red-500",
+    company: "Luxury Design",
+    content: "Their design sensibility is elite. They managed to capture our brand DNA perfectly while ensuring the site remains lightning fast.",
+    result: "Elite Brand Identity",
+    image: "bg-stone-300",
   },
   {
     name: "Robert Taylor",
     role: "Operations Director",
-    company: "ServiceHub",
-    content: "Outstanding work from start to finish. The team was professional, communicative, and delivered beyond our expectations.",
-    rating: 5,
-    image: "bg-gradient-to-br from-indigo-500 to-purple-500",
+    company: "SaaS Flow",
+    content: "The scale of technical expertise at WebifyTech is impressive. They solved complex integration issues that other agencies couldn't handle.",
+    result: "Complex System Fix",
+    image: "bg-slate-300",
   },
 ];
 
 export default function TestimonialsList() {
   return (
-    <section className="py-20 lg:py-32 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <section className="section-padding bg-[var(--surface)]">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-dark rounded-2xl p-8 relative"
+              className="group relative bg-white rounded-[40px] p-10 border border-[var(--primary)]/5 shadow-sm hover:shadow-2xl transition-all duration-500"
             >
-              <Quote className="w-8 h-8 text-primary-400 mb-4 opacity-50" />
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              <div className="absolute top-10 right-10">
+                 <Quote size={40} className="text-[var(--primary)] opacity-[0.03]" />
+              </div>
+
+              <div className="flex items-center gap-2 mb-6 bg-[var(--accent)]/10 text-[var(--primary)] px-3 py-1 rounded-full w-fit">
+                 <TrendingUp size={14} />
+                 <span className="text-[10px] font-display font-black uppercase tracking-widest">{testimonial.result}</span>
+              </div>
+
+              <div className="flex mb-6 gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} fill="var(--accent)" className="text-[var(--accent)]" />
                 ))}
               </div>
-              <p className="text-white/80 mb-6 leading-relaxed">{testimonial.content}</p>
-              <div className="flex items-center space-x-4">
-                <div className={`w-12 h-12 rounded-full ${testimonial.image}`} />
+
+              <p className="text-[var(--primary)] font-display text-lg mb-10 leading-relaxed italic">
+                "{testimonial.content}"
+              </p>
+
+              <div className="flex items-center gap-4 pt-8 border-t border-[var(--primary)]/5">
+                <div className={`w-14 h-14 rounded-2xl ${testimonial.image} grayscale group-hover:grayscale-0 transition-all duration-500`} />
                 <div>
-                  <p className="text-white font-semibold">{testimonial.name}</p>
-                  <p className="text-white/60 text-sm">{testimonial.role}</p>
-                  <p className="text-primary-400 text-sm">{testimonial.company}</p>
+                  <p className="text-[var(--primary)] font-display font-bold uppercase tracking-widest text-xs">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-[var(--muted)] font-body text-[10px] font-medium uppercase tracking-[0.2em]">
+                    {testimonial.role} at {testimonial.company}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -90,4 +105,5 @@ export default function TestimonialsList() {
     </section>
   );
 }
+
 

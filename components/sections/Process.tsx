@@ -1,78 +1,73 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Search, Lightbulb, Code2, Rocket } from "lucide-react";
+import { Search, Palette, Code, TrendingUp } from "lucide-react";
 
 const steps = [
   {
-    number: "01",
     icon: Search,
-    title: "Discovery",
-    description: "We analyze your business needs, target audience, and goals to create a strategic plan.",
+    title: "Discover",
+    description: "Deep-dive into your business goals, target audience, and competition to build a solid strategic foundation.",
   },
   {
-    number: "02",
-    icon: Lightbulb,
+    icon: Palette,
     title: "Design",
-    description: "Our team creates stunning designs that align with your brand and user expectations.",
+    description: "Creating human-crafted, high-conversion interfaces that reflect your brand's unique identity and values.",
   },
   {
-    number: "03",
-    icon: Code2,
-    title: "Development",
-    description: "We build your solution using cutting-edge technologies and best practices.",
+    icon: Code,
+    title: "Build",
+    description: "Meticulous, performance-optimized development using the latest stack for speed, security, and scalability.",
   },
   {
-    number: "04",
-    icon: Rocket,
-    title: "Launch",
-    description: "We deploy your project and provide ongoing support to ensure continued success.",
+    icon: TrendingUp,
+    title: "Optimize",
+    description: "Continuous testing, data analysis, and SEO refinement to ensure your digital asset never stops growing.",
   },
 ];
 
 export default function Process() {
   return (
-    <section className="py-20 lg:py-32 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-[var(--surface)] overflow-hidden">
+      <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+           className="mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our <span className="text-primary-400">Process</span>
+          <p className="text-[var(--accent)] font-body font-bold uppercase tracking-widest mb-4">Our Methodology</p>
+          <h2 className="type-scale-h2 text-[var(--primary)] max-w-2xl">
+            A Proven Path to <span className="italic font-light">Digital Dominance</span>
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            A proven methodology that delivers exceptional results
-          </p>
         </motion.div>
 
         <div className="relative">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Timeline Line */}
+          <div className="hidden lg:block absolute top-[50px] left-0 w-full h-0.5 bg-[var(--primary)]/5" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 20 }}
+                  key={step.title}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="relative"
+                  className="relative group"
                 >
-                  <div className="glass-dark rounded-2xl p-8 h-full">
-                    <div className="text-6xl font-bold text-primary-400/20 mb-4">{step.number}</div>
-                    <div className="w-14 h-14 rounded-xl bg-primary-500/20 flex items-center justify-center mb-6">
-                      <Icon className="w-7 h-7 text-primary-400" />
+                  <div className="w-24 h-24 rounded-3xl bg-white border border-[var(--primary)]/5 shadow-sm mb-10 flex items-center justify-center relative z-10 group-hover:bg-[var(--primary)] group-hover:text-[var(--surface)] transition-all duration-500">
+                    <div className="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-[var(--accent)] text-[var(--primary)] flex items-center justify-center font-display font-black text-xs">
+                      0{index + 1}
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-                    <p className="text-white/60">{step.description}</p>
+                    <Icon size={32} className="group-hover:text-[var(--accent)] transition-colors" />
                   </div>
-                  {index < steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-primary-400/30 transform -translate-y-1/2" />
-                  )}
+                  
+                  <h3 className="font-display text-2xl font-bold text-[var(--primary)] mb-4">{step.title}</h3>
+                  <p className="text-[var(--muted)] font-body leading-relaxed">{step.description}</p>
                 </motion.div>
               );
             })}
@@ -82,4 +77,5 @@ export default function Process() {
     </section>
   );
 }
+
 
