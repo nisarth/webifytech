@@ -1,6 +1,7 @@
 import ServicesHero from "@/components/sections/ServicesHero";
 import ServiceList from "@/components/sections/ServiceList";
 import Process from "@/components/sections/Process";
+import BlogPreview from "@/components/sections/BlogPreview";
 import CTA from "@/components/sections/CTA";
 
 export const metadata = {
@@ -60,6 +61,7 @@ export default function ServicesPage() {
       <ServicesHero />
       <ServiceList />
       <Process />
+      <BlogPreview />
       <CTA />
     </>
   );

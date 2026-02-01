@@ -4,6 +4,7 @@ import ServicesPreview from "@/components/sections/ServicesPreview";
 import PortfolioPreview from "@/components/sections/PortfolioPreview";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import TestimonialsPreview from "@/components/sections/TestimonialsPreview";
+import BlogPreview from "@/components/sections/BlogPreview";
 import CTA from "@/components/sections/CTA";
 
 export const metadata = {
@@ -32,6 +33,7 @@ export default function Home() {
       <PortfolioPreview />
       <WhyChooseUs />
       <TestimonialsPreview />
+      <BlogPreview />
       <CTA />
     </>
   );

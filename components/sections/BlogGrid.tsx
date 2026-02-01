@@ -4,51 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 
-const blogPosts = [
-  {
-    title: "The Physics of High-Converting Landing Pages",
-    excerpt: "Why most businesses fail at conversion and how to use behavioral psychology to double your leads.",
-    date: "March 15, 2024",
-    category: "Conversion",
-    image: "bg-stone-200",
-  },
-  {
-    id: "ecommerce-seo",
-    title: "Mastering Technical SEO for E-Commerce in 2024",
-    excerpt: "A deep dive into site structure, schema markup, and Core Web Vitals for scaling online stores.",
-    date: "March 10, 2024",
-    category: "SEO",
-    image: "bg-slate-200",
-  },
-  {
-    title: "Why Headless Commerce is the Future of Sales",
-    excerpt: "Exploring the flexibility, speed, and security advantages of decoupled e-commerce architectures.",
-    date: "March 5, 2024",
-    category: "Development",
-    image: "bg-zinc-200",
-  },
-  {
-    title: "AI in Design: Enhancing the Creative Workflow",
-    excerpt: "How we use generative AI to streamline design systems without losing the human touch.",
-    date: "February 28, 2024",
-    category: "Design",
-    image: "bg-neutral-200",
-  },
-  {
-    title: "Scaling from $1M to $10M: Digital Infrastructure",
-    excerpt: "Ensuring your website doesn't crash during your most important growth milestones.",
-    date: "February 20, 2024",
-    category: "Growth",
-    image: "bg-stone-300",
-  },
-  {
-    title: "The Art of Semantic Site Architecture",
-    excerpt: "How to build sites that search engines (and humans) can understand effortlessly.",
-    date: "February 15, 2024",
-    category: "SEO",
-    image: "bg-slate-300",
-  },
-];
+import { blogPosts } from "@/data/blog";
 
 export default function BlogGrid() {
   return (
@@ -67,7 +23,7 @@ export default function BlogGrid() {
               Knowledge to <span className="italic font-light">Fuel Your</span> Digital Strategy
             </h2>
           </div>
-          <Link href="/resources/all" className="inline-flex items-center gap-3 font-display font-bold text-xs uppercase tracking-widest text-[var(--primary)] hover:text-[var(--accent)] transition-colors mb-4">
+          <Link href="/resources" className="inline-flex items-center gap-3 font-display font-bold text-xs uppercase tracking-widest text-[var(--primary)] hover:text-[var(--accent)] transition-colors mb-4">
              Explore All Articles
              <ArrowRight size={16} />
           </Link>
@@ -83,26 +39,34 @@ export default function BlogGrid() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group flex flex-col h-full bg-white rounded-[40px] border border-[var(--primary)]/5 overflow-hidden hover:shadow-2xl transition-all duration-500"
             >
-              <div className={`aspect-[16/10] ${post.image} relative overflow-hidden`}>
-                <div className="absolute top-6 left-6">
+              <Link href={`/resources/${post.slug}`} className="block relative aspect-[16/10] overflow-hidden">
+                {post.image.includes("/") ? (
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
+                    style={{ backgroundImage: `url(${post.image})` }}
+                  />
+                ) : (
+                  <div className={`absolute inset-0 ${post.image} transition-transform duration-700 group-hover:scale-110`} />
+                )}
+                <div className="absolute top-6 left-6 z-10">
                   <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] text-[var(--primary)] font-bold uppercase tracking-widest shadow-sm">
                     {post.category}
                   </span>
                 </div>
-              </div>
+              </Link>
               <div className="p-10 flex flex-col flex-1">
                 <div className="flex items-center gap-2 text-[10px] text-[var(--muted)] font-body font-bold uppercase tracking-widest mb-6">
                   <Clock size={12} />
                   <span>{post.date}</span>
                 </div>
                 <h3 className="text-2xl font-display font-bold text-[var(--primary)] mb-6 group-hover:text-[var(--accent)] transition-colors leading-tight">
-                  {post.title}
+                  <Link href={`/resources/${post.slug}`}>{post.title}</Link>
                 </h3>
                 <p className="text-[var(--muted)] font-body text-sm mb-10 leading-relaxed flex-1">
                    {post.excerpt}
                 </p>
                 <Link
-                  href="#"
+                  href={`/resources/${post.slug}`}
                   className="inline-flex items-center gap-3 font-display font-bold text-[10px] uppercase tracking-[0.2em] text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors"
                 >
                   Read Article

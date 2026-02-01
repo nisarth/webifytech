@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { locations } from "@/data/locations";
+import { blogPosts } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://webify-tech.com";
@@ -26,6 +27,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...locationPages];
+  const blogPages = blogPosts.map((post) => ({
+    url: `${baseUrl}/resources/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as any,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...locationPages, ...blogPages];
 }
 
