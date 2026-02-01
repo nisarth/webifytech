@@ -2,11 +2,14 @@ import { blogPosts } from "@/data/blog";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Clock, Tag, Share2, MessageSquare } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CTA from "@/components/sections/CTA";
+import fs from "fs/promises";
+import path from "path";
+import { parseMarkdown } from "@/lib/markdown";
 
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -31,11 +34,36 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+async function getPostContent(slug: string) {
+  try {
+    const filePath = path.join(process.cwd(), "content", "blog", `${slug}.md`);
+    const content = await fs.readFile(filePath, "utf8");
+    return content;
+  } catch (error) {
+    return null;
+  }
+}
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = blogPosts.find((p) => p.slug === params.slug);
+  const rawContent = await getPostContent(params.slug);
 
   if (!post) {
     notFound();
+  }
+
+  // Parse markdown and resolve internal links
+  let htmlContent = "";
+  if (rawContent) {
+    htmlContent = parseMarkdown(rawContent);
+    // Resolve [LINK: page] placeholders
+    htmlContent = htmlContent
+      .replace(/\[LINK: services\]/g, '<a href="/services" class="text-[var(--accent)] hover:underline font-bold">Premier Services</a>')
+      .replace(/\[LINK: portfolio\]/g, '<a href="/portfolio" class="text-[var(--accent)] hover:underline font-bold">Success Cases</a>')
+      .replace(/\[LINK: contact\]/g, '<a href="/contact" class="text-[var(--accent)] hover:underline font-bold">Get Started</a>')
+      .replace(/\[LINK: about\]/g, '<a href="/about" class="text-[var(--accent)] hover:underline font-bold">Our Team</a>')
+      .replace(/\[LINK: resources\]/g, '<a href="/resources" class="text-[var(--accent)] hover:underline font-bold">More Insights</a>')
+      .replace(/\[LINK: home\]/g, '<a href="/" class="text-[var(--accent)] hover:underline font-bold">WebifyTech</a>');
   }
 
   const jsonLd = {
@@ -77,7 +105,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     }))
   };
 
-  // Related posts (excluding current)
   const relatedPosts = blogPosts
     .filter(p => p.slug !== post.slug)
     .slice(0, 2);
@@ -98,13 +125,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <Header />
       
       <main className="pt-32 pb-20 overflow-hidden">
-        {/* Progress Bar (Visual only for now) */}
-        <div className="fixed top-0 left-0 w-full h-1 bg-[var(--primary)]/10 z-50">
-          <div className="h-full bg-[var(--accent)] w-1/4" />
-        </div>
-
         <article className="container mx-auto px-6 max-w-4xl">
-          {/* Header */}
           <div className="mb-12">
             <Link 
               href="/resources" 
@@ -133,101 +154,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </p>
           </div>
 
-          {/* Featured Image placeholder/decoration */}
-          <div className={`aspect-[21/9] ${post.id === 'article-1' ? 'bg-[url("/assets/blog_physics.png")]' : 'bg-[var(--primary)]/5'} bg-cover bg-center rounded-[40px] mb-16 shadow-2xl relative overflow-hidden group`}>
-            {!post.image.includes('.png') && (
-               <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[var(--primary)]/20 font-display font-black text-6xl opacity-10">WEBIFY TECH</span>
-               </div>
-            )}
+          <div className={`aspect-[21/9] bg-cover bg-center rounded-[40px] mb-16 shadow-2xl relative overflow-hidden group`} style={{ backgroundImage: `url(${post.image})` }}>
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/20 to-transparent" />
           </div>
 
-          {/* Content Mockup (Following User's Master Prompt Structure) */}
-          <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--primary)] prose-p:text-[var(--muted)] prose-p:font-body prose-li:text-[var(--muted)] prose-li:font-body">
-            <h2 className="text-3xl mt-12 mb-6">Introduction to {post.primaryKeyword}</h2>
-            <p>
-              In the rapidly evolving digital landscape of 2025, {post.primaryKeyword} has become more than just a 
-              technical requirement—it&apos;s a fundamental pillar of business success. As digital saturation reaches
-              new heights, companies in the U.S. and beyond are realizing that a generic online presence is no 
-              longer sufficient. Performance, security, and user experience have shifted from luxury features to 
-              essential survival traits.
-            </p>
-            
-            <blockquote className="my-12 p-8 bg-[var(--primary)]/5 border-l-4 border-[var(--accent)] rounded-r-2xl">
-              <p className="text-2xl font-display font-bold text-[var(--primary)] mb-2">
-                "Digital interaction is the first point of contact for 97% of modern consumers. If that 
-                experience isn&apos;t flawless, you aren&apos;t just losing a lead; you&apos;re losing market share."
-              </p>
-              <footer className="text-sm font-body font-bold text-[var(--muted)]">
-                — Senior Strategy Analyst, WebifyTech
-              </footer>
-            </blockquote>
-
-            <h2 className="text-3xl mt-12 mb-6">The Strategic Importance of Internal Linking</h2>
-            <p>
-              One of the most overlooked aspects of {post.primaryKeyword} is the architecture of internal authority.
-              By strategically linking to your <Link href="/services" className="text-[var(--accent)] hover:underline">Premier Services</Link> 
-              and <Link href="/portfolio" className="text-[var(--accent)] hover:underline">Success Cases</Link>, you create a 
-              navigational web that guides both users and search engine crawlers toward your high-value pages.
-            </p>
-
-            <h2 className="text-3xl mt-12 mb-6">The WebifyTech Advantage</h2>
-            <p>
-              At <Link href="/" className="text-[var(--accent)] hover:underline">WebifyTech</Link>, we don&apos;t just build websites; 
-              we build conversion engines. Our approach to {post.primaryKeyword} involves a deep integration of 
-              technical excellence and behavioral psychology. Whether you&apos;re exploring 
-              {post.secondaryKeywords.map((tag, i) => (
-                <span key={tag}>
-                  {i > 0 && ", "} 
-                  <span className="font-bold text-[var(--primary)]">{tag}</span>
-                </span>
-              ))}, our team delivers measurable growth.
-            </p>
-
-            {/* Money Page Links Section (Link Juice) */}
-            <div className="my-16 p-10 bg-[var(--primary)] text-white rounded-[40px] shadow-2xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] rounded-full blur-[100px] opacity-20 -translate-y-1/2 translate-x-1/2" />
-               <h3 className="text-2xl font-display font-bold mb-6 relative z-10">Maximize Your Results</h3>
-               <p className="text-white/80 font-body mb-8 relative z-10">
-                 Explore how our specialized services can transform your {post.primaryKeyword} strategy into a revenue-generating asset.
-               </p>
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
-                 {post.internalLinks.map((link) => (
-                    <Link 
-                      key={link}
-                      href={link}
-                      className="flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl transition-all group"
-                    >
-                      <span className="font-display font-bold text-sm uppercase tracking-widest">
-                        {link.replace("/", "") || "Services"}
-                      </span>
-                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                 ))}
-               </div>
+          {rawContent ? (
+            <div 
+              className="prose prose-lg max-w-none prose-headings:font-display"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+          ) : (
+            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--primary)] prose-p:text-[var(--muted)] prose-p:font-body prose-li:text-[var(--muted)] prose-li:font-body">
+              <p>Content is loading or temporarily unavailable. Please check back soon.</p>
             </div>
+          )}
 
-            {/* FAQ Section */}
-            <h2 className="text-3xl mt-20 mb-10">Frequently Asked Questions</h2>
-            <div className="space-y-8">
-              {post.faq.map((item, i) => (
-                <div key={i} className="group">
-                  <h3 className="text-xl font-display font-bold text-[var(--primary)] mb-4 flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] flex items-center justify-center text-xs">
-                      {i + 1}
-                    </span>
-                    {item.question}
-                  </h3>
-                  <p className="text-[var(--muted)] font-body leading-relaxed pl-11">
-                    {item.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Related Articles (Preventing Orphans) */}
           <div className="mt-24 pt-24 border-t border-[var(--primary)]/10">
             <h2 className="text-2xl font-display font-bold text-[var(--primary)] mb-12">Related Insights</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

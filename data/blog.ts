@@ -80,6 +80,43 @@ export const blogPosts: BlogPost[] = [
      ]
   },
 
+  {
+    id: "article-4",
+    slug: "web-development-cost-breakdown-2025",
+    title: "Web Development Cost Breakdown 2025: Investing for High ROI",
+    primaryKeyword: "web development cost breakdown",
+    secondaryKeywords: ["cost per feature", "hourly rates 2025", "web dev maintenance cost"],
+    metaTitle: "Web Development Cost Breakdown 2025 | WebifyTech",
+    metaDescription: "Understand the hidden and obvious costs of building a premium website in 2025. From infrastructure to design, we break down every dollar.",
+    category: "Development",
+    date: "February 7, 2026",
+    excerpt: "Understand the hidden and obvious costs of building a premium website in 2025. From infrastructure to design, we break down every dollar.",
+    image: "/assets/hero_visual.png",
+    internalLinks: ["/services", "/contact"],
+    faq: [
+      { question: "What are the most expensive parts of web development?", answer: "Custom functionality and API integrations generally require the most high-level engineering and testing." },
+      { question: "Why do hourly rates vary so much?", answer: "Rates reflect expertise, location, and the level of post-launch support provided." }
+    ]
+  },
+  {
+    id: "article-5",
+    slug: "choosing-web-dev-agency-2025",
+    title: "Choosing the Right Web Development Agency in 2025: A Checklist",
+    primaryKeyword: "choosing web development agency",
+    secondaryKeywords: ["agency vs freelancer", "vetting developers", "portfolio evaluation"],
+    metaTitle: "How to Choose a Web Development Agency in 2025",
+    metaDescription: "Don't get stuck with a bad provider. Use this 2025 checklist to vet web development agencies and ensure your project succeeds.",
+    category: "Development",
+    date: "February 8, 2026",
+    excerpt: "Don't get stuck with a bad provider. Use this 2025 checklist to vet web development agencies and ensure your project succeeds.",
+    image: "/assets/blog_physics.png",
+    internalLinks: ["/about", "/portfolio"],
+    faq: [
+      { question: "Should I hire an agency or a freelancer?", answer: "Agencies provide a full team (Designer, Developer, PM), while freelancers are better for small, specific tasks." },
+      { question: "What should I look for in a portfolio?", answer: "Look for variety, results-driven metrics, and technical complexity similar to your own project." }
+    ]
+  },
+
   // PILLAR 2: E-COMMERCE
   {
     id: "article-11",
@@ -123,6 +160,24 @@ export const blogPosts: BlogPost[] = [
       { question: "Should I write blog content for my online store?", answer: "Yes. Blogs capture 'top-of-funnel' traffic (information seekers) and build topical authority that helps your product pages rank." }
     ]
   },
+  {
+    id: "article-13",
+    slug: "optimizing-checkout-conversion-2025",
+    title: "Optimizing Checkout Conversion 2025: The Psychology of 'Buy Now'",
+    primaryKeyword: "checkout conversion optimization",
+    secondaryKeywords: ["abandoned cart recovery", "trust signals", "payment gateway UX"],
+    metaTitle: "How to Optimize Checkout Conversion in 2025",
+    metaDescription: "Don't lose sales at the finish line. Learn the 2025 best practices for checkout design that reduces friction and maximizes orders.",
+    category: "E-Commerce",
+    date: "February 9, 2026",
+    excerpt: "Don't lose sales at the finish line. Learn the 2025 best practices for checkout design that reduces friction and maximizes orders.",
+    image: "/assets/hero_visual.png",
+    internalLinks: ["/services", "/portfolio"],
+    faq: [
+      { question: "What causes most cart abandonment?", answer: "Unexpected shipping costs and mandatory account creation are the top two hurdles." },
+      { question: "How can I improve mobile checkout?", answer: "Implement one-click payments like Apple Pay and Google Pay to eliminate typing." }
+    ]
+  },
 
   // PILLAR 3: SEO
   {
@@ -144,6 +199,24 @@ export const blogPosts: BlogPost[] = [
       { question: "What are the most common technical SEO issues?", answer: "Slow site speed, broken internal links, duplicate content, and missing schema markup." },
       { question: "How do I fix crawl errors on my website?", answer: "Identify the source via Google Search Console, then use 301 redirects or fix the underlying link/server issue." },
       { question: "Does technical SEO affect content rankings?", answer: "Yes. If Google can't technically access your content, even the best writing in the world won't rank." }
+    ]
+  },
+  {
+    id: "article-22",
+    slug: "google-search-console-guide-2025",
+    title: "The Ultimate Guide to Google Search Console in 2025",
+    primaryKeyword: "Google Search Console guide",
+    secondaryKeywords: ["indexing issues", "search performance", "Sitemap submission"],
+    metaTitle: "Google Search Console Guide 2025 | Master Your Organic Search",
+    metaDescription: "The most important tool in your SEO kit. Learn how to use Google Search Console to monitor performance and fix technical issues.",
+    category: "SEO",
+    date: "February 10, 2026",
+    excerpt: "The most important tool in your SEO kit. Learn how to use Google Search Console to monitor performance and fix technical issues.",
+    image: "/assets/portfolio_nova.png",
+    internalLinks: ["/services", "/resources"],
+    faq: [
+      { question: "What is Google Search Console used for?", answer: "It's a free tool that helps you monitor, maintain, and troubleshoot your site's presence in Google Search results." },
+      { question: "How do I see which keywords I rank for?", answer: "Use the 'Performance' report to see Clicks, Impressions, CTR, and Average Position for specific queries." }
     ]
   },
 
