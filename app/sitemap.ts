@@ -3,7 +3,7 @@ import { locations } from "@/data/locations";
 import { blogPosts } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://webify-tech.com";
+  const baseUrl = "https://webifytech.netlify.app";
 
   const staticPages = [
     "",

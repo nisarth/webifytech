@@ -111,8 +111,8 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "WebifyTech",
-                "url": "https://webify-tech.com",
-                "logo": "https://webify-tech.com/assets/logo.svg",
+                "url": "https://webifytech.netlify.app",
+                "logo": "https://webifytech.netlify.app/assets/logo.svg",
                 "description": "WebifyTech is a full-service digital agency specializing in web development, e-commerce solutions, SEO optimization, and digital marketing.",
                 "contactPoint": {
                   "@type": "ContactPoint",
@@ -126,10 +126,10 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 "name": "WebifyTech",
-                "url": "https://webify-tech.com",
+                "url": "https://webifytech.netlify.app",
                 "potentialAction": {
                   "@type": "SearchAction",
-                  "target": "https://webify-tech.com/search?q={search_term_string}",
+                  "target": "https://webifytech.netlify.app/search?q={search_term_string}",
                   "query-input": "required name=search_term_string"
                 }
               }
