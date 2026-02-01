@@ -8,61 +8,77 @@ const services = [
   {
     icon: Code,
     title: "Web Development",
-    description: "Custom websites built with modern technologies and best practices.",
-    color: "from-blue-500 to-cyan-500",
+    description: "High-performance, custom-coded websites built for speed and conversion.",
+    stat: "Avg. 340% ROI",
+    link: "/services#web-dev",
+    gridSpan: "lg:col-span-2",
   },
   {
     icon: ShoppingCart,
-    title: "E-commerce Solutions",
-    description: "Powerful online stores that convert visitors into customers.",
-    color: "from-purple-500 to-pink-500",
+    title: "E-Commerce",
+    description: "Scalable online stores that turn casual browsers into loyal customers.",
+    stat: "2.5x Conversion",
+    link: "/services#ecommerce",
+    gridSpan: "lg:col-span-1",
   },
   {
     icon: Search,
-    title: "SEO Optimization",
-    description: "Boost your visibility and rank higher in search results.",
-    color: "from-green-500 to-emerald-500",
+    title: "SEO Strategy",
+    description: "Dominating search results to ensure your brand is always discovered first.",
+    stat: "+180% Organic",
+    link: "/services#seo",
+    gridSpan: "lg:col-span-1",
   },
   {
     icon: Palette,
     title: "UI/UX Design",
-    description: "Beautiful, intuitive designs that users love to interact with.",
-    color: "from-orange-500 to-red-500",
+    description: "Human-centric design that balances aesthetic beauty with functional precision.",
+    stat: "5/5 Star UX",
+    link: "/services#design",
+    gridSpan: "lg:col-span-1",
   },
   {
     icon: Megaphone,
     title: "Digital Marketing",
-    description: "Strategic campaigns that drive traffic and increase conversions.",
-    color: "from-indigo-500 to-purple-500",
+    description: "Data-backed campaigns that amplify your reach and maximize every dollar spent.",
+    stat: "4.2x ROAS",
+    link: "/services#marketing",
+    gridSpan: "lg:col-span-1",
   },
   {
     icon: BarChart,
-    title: "Analytics & Insights",
-    description: "Data-driven decisions with comprehensive analytics and reporting.",
-    color: "from-teal-500 to-cyan-500",
+    title: "Analytics",
+    description: "Processing complex data into clear, actionable growth strategies for your team.",
+    stat: "100% Data-Driven",
+    link: "/services#analytics",
+    gridSpan: "lg:col-span-2",
   },
 ];
 
-export default function ServicesPreview() {
+export default function ServicesPreview({ title }: { title?: string }) {
   return (
-    <section className="py-20 lg:py-32 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-[var(--surface)] relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-1/2 left-0 w-[800px] h-[800px] bg-[var(--accent)] opacity-[0.02] blur-[100px] rounded-full -translate-x-1/2 pointer-events-none" />
+
+      <div className="container mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our <span className="text-primary-400">Services</span>
+          <p className="text-[var(--accent)] font-body font-bold uppercase tracking-widest mb-4">Our Expertise</p>
+          <h2 className="type-scale-h2 max-w-2xl text-[var(--primary)]">
+            {title ? title : (
+              <>Services Designed to Drive <span className="italic font-light">Measurable Growth</span></>
+            )}
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Comprehensive digital solutions tailored to your business needs
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
@@ -72,42 +88,37 @@ export default function ServicesPreview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="glass-dark rounded-2xl p-8 hover:scale-105 transition-transform duration-300"
+                className={`${service.gridSpan} group relative bg-white rounded-3xl p-10 shadow-sm hover:shadow-2xl transition-all duration-500 border border-[var(--primary)]/5 overflow-hidden`}
               >
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                  <Icon className="w-7 h-7 text-white" />
+                {/* Hover Reveal Stat */}
+                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <span className="text-[var(--accent)] font-display font-black text-xl">{service.stat}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                <p className="text-white/60 mb-6">{service.description}</p>
+
+                <div className="w-16 h-16 rounded-2xl bg-[var(--primary)]/5 flex items-center justify-center mb-8 group-hover:bg-[var(--primary)] group-hover:text-[var(--surface)] transition-all duration-500">
+                  <Icon size={32} className="text-[var(--primary)] group-hover:text-[var(--accent)]" />
+                </div>
+                
+                <h3 className="font-display text-2xl font-bold text-[var(--primary)] mb-4">{service.title}</h3>
+                <p className="text-[var(--muted)] text-lg mb-8 leading-relaxed">{service.description}</p>
+                
                 <Link
-                  href="/services"
-                  className="text-primary-400 hover:text-primary-300 font-medium flex items-center space-x-2 group"
+                  href={service.link}
+                  className="inline-flex items-center gap-2 font-display font-bold text-[var(--primary)] group/link"
                 >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Explore Details
+                  <ArrowRight size={18} className="group-hover/link:translate-x-2 transition-transform duration-300 text-[var(--accent)]" />
                 </Link>
+
+                {/* Subtle corner detail */}
+                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[var(--accent)]/5 rounded-full group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
               </motion.div>
             );
           })}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-12"
-        >
-          <Link
-            href="/services"
-            className="inline-flex items-center space-x-2 px-8 py-4 glass-dark text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
-          >
-            <span>View All Services</span>
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
 }
+
 

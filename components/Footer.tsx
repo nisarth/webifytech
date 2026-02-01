@@ -7,60 +7,68 @@ import {
   Twitter,
   Instagram,
   Github,
+  ArrowUpRight,
 } from "lucide-react";
 
 const footerLinks = {
   company: [
     { href: "/about", label: "About Us" },
     { href: "/services", label: "Services" },
-    { href: "/portfolio", label: "Portfolio" },
+    { href: "/portfolio", label: "Our Work" },
     { href: "/contact", label: "Contact" },
   ],
   resources: [
-    { href: "/resources", label: "Resources" },
-    { href: "/testimonials", label: "Testimonials" },
-    { href: "/resources", label: "Blog" },
-    { href: "/resources", label: "Case Studies" },
+    { href: "/resources", label: "Expert Insights" },
+    { href: "/testimonials", label: "Client Reviews" },
+    { href: "/resources", label: "Success Stories" },
+    { href: "/resources", label: "SEO Guides" },
   ],
-  legal: [
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "Terms of Service" },
-    { href: "#", label: "Cookie Policy" },
+  locations: [
+    { href: "/locations/new-york", label: "New York, NY" },
+    { href: "/locations/los-angeles", label: "Los Angeles, CA" },
+    { href: "/locations/chicago", label: "Chicago, IL" },
+    { href: "/locations/houston", label: "Houston, TX" },
   ],
 };
 
 const socialLinks = [
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com/company/webifytech", label: "LinkedIn" },
+  { icon: Twitter, href: "https://twitter.com/webifytech", label: "Twitter" },
+  { icon: Instagram, href: "https://instagram.com/webifytech", label: "Instagram" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-gray-900 to-black text-white/80">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+    <footer className="relative bg-[var(--primary)] text-[var(--surface)] overflow-hidden">
+      {/* Decorative Gradient Flare */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent)] opacity-[0.03] blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      
+      <div className="container mx-auto px-6 md:px-12 py-20 lg:py-24 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Webify<span className="text-primary-400">Tech</span>
-            </h3>
-            <p className="text-sm text-white/60 mb-6">
-              Transforming digital experiences through innovative web design and
-              e-commerce solutions.
+          <div className="lg:col-span-4">
+            <Link href="/" className="inline-block mb-8">
+              <span className="text-3xl font-display font-black tracking-tighter">
+                Webify<span className="text-[var(--accent)]">Tech</span>
+              </span>
+            </Link>
+            <p className="text-lg font-body text-[var(--surface)]/70 mb-10 max-w-sm">
+              Transforming digital presences through human-crafted web design and 
+              results-driven e-commerce strategy. Built for growth, since 2024.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
                   <a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 glass-dark rounded-lg flex items-center justify-center hover:text-primary-400 transition-colors"
+                    className="w-12 h-12 rounded-full border border-[var(--surface)]/10 flex items-center justify-center hover:bg-[var(--accent)] hover:text-[var(--primary)] hover:border-transparent transition-all duration-300 group"
                   >
-                    <Icon size={18} />
+                    <Icon size={20} className="group-hover:scale-110 transition-transform" />
                   </a>
                 );
               })}
@@ -68,16 +76,17 @@ export default function Footer() {
           </div>
 
           {/* Company Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
+          <div className="lg:col-span-2">
+            <h4 className="font-display text-xl font-bold mb-8 text-[var(--accent)]">Agency</h4>
+            <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-primary-400 transition-colors"
+                    className="text-[var(--surface)]/60 hover:text-[var(--accent)] transition-colors flex items-center gap-1 group"
                   >
                     {link.label}
+                    <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
               ))}
@@ -85,14 +94,14 @@ export default function Footer() {
           </div>
 
           {/* Resources Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2">
+          <div className="lg:col-span-2">
+            <h4 className="font-display text-xl font-bold mb-8 text-[var(--accent)]">Resources</h4>
+            <ul className="space-y-4">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-primary-400 transition-colors"
+                    className="text-[var(--surface)]/60 hover:text-[var(--accent)] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -102,55 +111,76 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Get in Touch</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start space-x-3">
-                <Mail
-                  size={18}
-                  className="text-primary-400 mt-1 flex-shrink-0"
-                />
-                <span className="text-sm">hello.webifytech@gmail.com</span>
+          <div className="lg:col-span-4">
+            <h4 className="font-display text-xl font-bold mb-8 text-[var(--accent)]">Get in Touch</h4>
+            <ul className="space-y-6">
+              <li className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[var(--surface)]/5 flex items-center justify-center flex-shrink-0">
+                  <Mail size={18} className="text-[var(--accent)]" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-[var(--surface)]/40 mb-1">Email us</p>
+                  <a href="mailto:hello.webifytech@gmail.com" className="hover:text-[var(--accent)] transition-colors">
+                    hello.webifytech@gmail.com
+                  </a>
+                </div>
               </li>
-              <li className="flex items-start space-x-3">
-                <Phone
-                  size={18}
-                  className="text-primary-400 mt-1 flex-shrink-0"
-                />
-                <span className="text-sm">+1 (555) 123-4567</span>
+              <li className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[var(--surface)]/5 flex items-center justify-center flex-shrink-0">
+                  <Phone size={18} className="text-[var(--accent)]" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-[var(--surface)]/40 mb-1">Call us</p>
+                  <a href="tel:+15551234567" className="hover:text-[var(--accent)] transition-colors">
+                    +1 (555) 123-4567
+                  </a>
+                </div>
               </li>
-              <li className="flex items-start space-x-3">
-                <MapPin
-                  size={18}
-                  className="text-primary-400 mt-1 flex-shrink-0"
-                />
-                <span className="text-sm">
-                  123 Digital Street, Tech City, TC 12345
-                </span>
+              <li className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[var(--surface)]/5 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={18} className="text-[var(--accent)]" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-[var(--surface)]/40 mb-1">Visit us</p>
+                  <span className="text-[var(--surface)]/80">
+                    123 Digital Street, Tech City, TC 12345
+                  </span>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-white/60">
-              © {new Date().getFullYear()} WebifyTech. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              {footerLinks.legal.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm hover:text-primary-400 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+        {/* AI & SEO Crawlable Entity Description (Visually hidden but present) */}
+        <div className="sr-only">
+          <p>
+            WebifyTech is a U.S.-based digital agency founded in 2024, specializing in custom web development, 
+            e-commerce platform builds, search engine optimization, and digital marketing. We serve 
+            small-to-medium businesses across the United States, with a focus on measurable growth and 
+            long-term client partnerships.
+          </p>
+        </div>
+
+        <div className="border-t border-[var(--surface)]/10 mt-20 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-sm text-[var(--surface)]/40 font-body">
+            © {new Date().getFullYear()} WebifyTech. All rights reserved. 
+            <span className="mx-2">|</span>
+            Made with intention.
+          </p>
+          <div className="flex gap-8">
+            <Link href="/locations" className="text-sm text-[var(--surface)]/40 hover:text-[var(--accent)] transition-colors">
+              Our Locations
+            </Link>
+            <Link href="#" className="text-sm text-[var(--surface)]/40 hover:text-[var(--accent)] transition-colors">
+              Privacy
+            </Link>
+            <Link href="#" className="text-sm text-[var(--surface)]/40 hover:text-[var(--accent)] transition-colors">
+              Terms
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+

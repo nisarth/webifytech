@@ -1,80 +1,76 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter, Mail } from "lucide-react";
 
 const teamMembers = [
   {
     name: "Alex Thompson",
-    role: "Creative Director",
-    bio: "10+ years of experience in digital design",
-    image: "bg-gradient-to-br from-blue-500 to-cyan-500",
+    role: "Founder & Creative Director",
+    bio: "Visionary designer focused on the intersection of human psychology and digital interfaces.",
+    image: "bg-stone-200",
   },
   {
     name: "Jessica Martinez",
-    role: "Lead Developer",
-    bio: "Full-stack expert passionate about modern web technologies",
-    image: "bg-gradient-to-br from-purple-500 to-pink-500",
+    role: "Head of Engineering",
+    bio: "System architect specialized in high-performance, scalable web infrastructure.",
+    image: "bg-slate-200",
   },
   {
     name: "David Kim",
-    role: "SEO Specialist",
-    bio: "Helping businesses rank higher and grow organically",
-    image: "bg-gradient-to-br from-green-500 to-emerald-500",
+    role: "Lead Growth Strategist",
+    bio: "Data scientist turned digital marketer, obsessed with SEO and conversion metrics.",
+    image: "bg-zinc-200",
   },
   {
     name: "Sarah Williams",
-    role: "Project Manager",
-    bio: "Ensuring smooth project delivery and client satisfaction",
-    image: "bg-gradient-to-br from-orange-500 to-red-500",
+    role: "Operations Manager",
+    bio: "Efficiency expert ensuring every project is delivered with precision and white-glove service.",
+    image: "bg-neutral-200",
   },
 ];
 
 export default function Team() {
   return (
-    <section className="py-20 lg:py-32 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-[var(--surface)]">
+      <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+           className="mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Meet Our <span className="text-primary-400">Team</span>
+          <p className="text-[var(--accent)] font-body font-bold uppercase tracking-widest mb-4">The Humans Behind the Code</p>
+          <h2 className="type-scale-h2 text-[var(--primary)] max-w-2xl">
+            Meet the <span className="italic font-light">Growth Partners</span> Who Build Your Future
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            The talented individuals behind WebifyTech's success
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="glass-dark rounded-2xl overflow-hidden group"
+              className="group flex flex-col md:flex-row gap-8 items-center md:items-start"
             >
-              <div className={`h-64 ${member.image} relative`}>
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <div className="flex space-x-4">
-                    <a href="#" className="w-10 h-10 glass-dark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <Linkedin className="w-5 h-5 text-white" />
-                    </a>
-                    <a href="#" className="w-10 h-10 glass-dark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                      <Twitter className="w-5 h-5 text-white" />
-                    </a>
-                  </div>
-                </div>
+              <div className={`w-48 h-64 shrink-0 rounded-3xl ${member.image} relative overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700`}>
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/40 to-transparent" />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-1">{member.name}</h3>
-                <p className="text-primary-400 text-sm mb-2">{member.role}</p>
-                <p className="text-white/60 text-sm">{member.bio}</p>
+              
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="font-display text-2xl font-bold text-[var(--primary)] mb-2">{member.name}</h3>
+                <p className="text-[var(--accent)] font-body text-xs font-bold uppercase tracking-widest mb-4">{member.role}</p>
+                <p className="text-[var(--muted)] font-body leading-relaxed mb-6 max-w-sm">{member.bio}</p>
+                
+                <div className="flex justify-center md:justify-start gap-4">
+                  <a href="#" className="text-[var(--primary)]/30 hover:text-[var(--accent)] transition-colors"><Linkedin size={18} /></a>
+                  <a href="#" className="text-[var(--primary)]/30 hover:text-[var(--accent)] transition-colors"><Twitter size={18} /></a>
+                  <a href="#" className="text-[var(--primary)]/30 hover:text-[var(--accent)] transition-colors"><Mail size={18} /></a>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -83,4 +79,5 @@ export default function Team() {
     </section>
   );
 }
+
 
