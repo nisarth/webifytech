@@ -34,9 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Add Breadcrumb Schema to Sitemap or ensure it's handled in pages
-  // (Breadcrumbs are handled via JSON-LD in layout/pages)
+  // JSON-LD Breadcrumbs are handled at the page/layout level
 
   return [...staticPages, ...locationPages, ...blogPages];
 }
-

@@ -130,7 +130,7 @@ export const blogPosts: BlogPost[] = [
     date: "February 3, 2026",
     excerpt: "Should you build on Shopify or go custom? Explore the pros, cons, and long-term costs of each approach for your online store.",
     image: "/assets/blog_shopify.png",
-    internalLinks: ["/services", "/portfolio", "/contact"],
+    internalLinks: ["/services", "/portfolio", "/contact", "/locations/new-york"],
     faq: [
       { question: "Is Shopify better than a custom-built e-commerce site?", answer: "It depends on your scale. Shopify is excellent for starting quickly, but custom solutions offer 30-50% better conversion rates for high-volume brands." },
       { question: "How much does custom e-commerce development cost?", answer: "Custom e-commerce platforms typically range from $25,000 to $250,000 depending on complexity and third-party integrations." },

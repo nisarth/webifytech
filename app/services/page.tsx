@@ -65,7 +65,14 @@ export default function ServicesPage() {
               "itemOffered": {
                 "@type": "Service",
                 "name": "UI/UX Design",
-                "description": "Psychology-driven design that converts visitors into customers."
+                "description": "Psychology-driven design that converts visitors into customers.",
+                "provider": {
+                  "@id": "https://webifytech.netlify.app/#organization"
+                },
+                "mainEntityOfPage": {
+                  "@type": "WebPage",
+                  "@id": "https://webifytech.netlify.app/services"
+                }
               }
             }
           ]
