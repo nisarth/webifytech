@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
     date: "February 1, 2026",
     excerpt: "Understand the web development process, costs, and technologies for 2025. This comprehensive guide helps business owners make informed decisions for their next digital project.",
     image: "/assets/blog_physics.png",
-    internalLinks: ["/services", "/portfolio", "/contact"],
+    internalLinks: ["/services", "/portfolio", "/contact", "/locations/new-york"],
     faq: [
       { question: "How much does custom web development cost in 2025?", answer: "Costs vary significantly based on complexity, but high-performance professional sites typically range from $15,000 to $100,000+ for enterprise solutions." },
       { question: "How long does it take to build a professional website?", answer: "A standard custom build takes 8-12 weeks, while complex platforms may require 4-6 months of focused development." },
@@ -49,7 +49,7 @@ export const blogPosts: BlogPost[] = [
     date: "February 2, 2026",
     excerpt: "Choosing the right frontend framework can make or break your project. Compare React, Next.js, and Vue.js head-to-head with real performance data.",
     image: "/assets/hero_visual.png",
-    internalLinks: ["/services", "/about"],
+    internalLinks: ["/services", "/about", "/portfolio"],
     faq: [
       { question: "Is React still the most popular frontend framework in 2025?", answer: "Yes, React remains dominant due to its massive ecosystem, though Next.js has become the default for production-grade applications." },
       { question: "What is the difference between React and Next.js?", answer: "React is a library for building UI, while Next.js is a full-featured framework built on React that adds Server-Side Rendering (SSR) and Static Site Generation (SSG)." },
@@ -151,7 +151,7 @@ export const blogPosts: BlogPost[] = [
     date: "February 4, 2026",
     excerpt: "Rank your product pages and categories. This guide covers the technical and content strategies needed to dominate e-commerce search results.",
     image: "/assets/portfolio_ecosmart.png",
-    internalLinks: ["/services", "/resources"],
+    internalLinks: ["/services", "/resources", "/services#seo"],
     faq: [
       { question: "How is e-commerce SEO different from regular SEO?", answer: "E-commerce SEO focuses heavily on product intent, faceted navigation, and technical scalability across thousands of SKUs." },
       { question: "How do I optimize product pages for search engines?", answer: "Use unique descriptions, high-res images with alt text, schema markup for prices/availability, and customer reviews." },
@@ -342,7 +342,7 @@ export const blogPosts: BlogPost[] = [
     date: "February 16, 2026",
     excerpt: "If you have a physical location, you need local SEO. Learn how to rank in the 'Map Pack'.",
     image: "/assets/portfolio_apex.png",
-    internalLinks: ["/services", "/locations/new-york"],
+    internalLinks: ["/services", "/locations/new-york", "/contact"],
     faq: [
       { question: "How important is Google Business Profile for local SEO?", answer: "It is the single most important factor for appearing in local search results." }
     ]

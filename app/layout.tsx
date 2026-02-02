@@ -102,7 +102,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         
-        {/* Schema.org Organization Markup */}
+        {/* Schema.org Global Markup */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -110,10 +110,21 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
+                "@id": "https://webifytech.netlify.app/#organization",
                 "name": "WebifyTech",
                 "url": "https://webifytech.netlify.app",
-                "logo": "https://webifytech.netlify.app/assets/logo.svg",
-                "description": "WebifyTech is a full-service digital agency specializing in web development, e-commerce solutions, SEO optimization, and digital marketing.",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://webifytech.netlify.app/assets/logo.svg",
+                  "width": "180",
+                  "height": "60"
+                },
+                "sameAs": [
+                  "https://twitter.com/webifytech",
+                  "https://linkedin.com/company/webifytech",
+                  "https://github.com/webifytech"
+                ],
+                "description": "WebifyTech is a premier digital agency specializing in high-performance web development, Shopify e-commerce, and strategic SEO optimization.",
                 "contactPoint": {
                   "@type": "ContactPoint",
                   "telephone": "+1-555-123-4567",
@@ -125,12 +136,31 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
+                "@id": "https://webifytech.netlify.app/#website",
                 "name": "WebifyTech",
                 "url": "https://webifytech.netlify.app",
+                "publisher": {
+                  "@id": "https://webifytech.netlify.app/#organization"
+                },
                 "potentialAction": {
                   "@type": "SearchAction",
                   "target": "https://webifytech.netlify.app/search?q={search_term_string}",
                   "query-input": "required name=search_term_string"
+                }
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "ProfessionalService",
+                "@id": "https://webifytech.netlify.app/#service",
+                "name": "WebifyTech Digital Solutions",
+                "url": "https://webifytech.netlify.app",
+                "image": "https://webifytech.netlify.app/assets/og-image.png",
+                "priceRange": "$$$",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Miami",
+                  "addressRegion": "FL",
+                  "addressCountry": "US"
                 }
               }
             ]),

@@ -13,11 +13,10 @@ export default function ServicesPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": "Web Development",
+    "@id": "https://webifytech.netlify.app/services#service",
+    "serviceType": "Digital Agency Services",
     "provider": {
-      "@type": "ProfessionalService",
-      "name": "WebifyTech",
-      "url": "https://webify-tech.com"
+      "@id": "https://webifytech.netlify.app/#organization"
     },
     "areaServed": {
       "@type": "Country",
@@ -25,28 +24,51 @@ export default function ServicesPage() {
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Digital Services",
+      "name": "WebifyTech Digital Services",
       "itemListElement": [
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Custom Web Development"
-          }
+          "@type": "OfferCatalog",
+          "name": "Web Development",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Custom Web Development",
+                "description": "Bespoke high-performance websites built with modern frameworks like Next.js and Payload CMS."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "E-Commerce Solutions",
+                "description": "Conversion-focused Shopify and custom e-commerce platforms designed for growth."
+              }
+            }
+          ]
         },
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "E-Commerce Solutions"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "SEO Strategy"
-          }
+          "@type": "OfferCatalog",
+          "name": "Digital Marketing",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Search Engine Optimization (SEO)",
+                "description": "Strategic SEO services to dominate search results and drive organic revenue."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "UI/UX Design",
+                "description": "Psychology-driven design that converts visitors into customers."
+              }
+            }
+          ]
         }
       ]
     }

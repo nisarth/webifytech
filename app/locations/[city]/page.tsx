@@ -31,23 +31,34 @@ export default function LocationPage({ params }: Props) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "ProfessionalService",
+    "@id": `https://webifytech.netlify.app/locations/${location.slug}#localbusiness`,
     "name": `WebifyTech ${location.city}`,
-    "image": "https://webify-tech.com/logo.png",
-    "description": `Expert web development and SEO services in ${location.city}, ${location.region}.`,
+    "image": "https://webifytech.netlify.app/assets/og-image.png",
+    "description": `Expert web development, e-commerce, and SEO services in ${location.city}, ${location.region}. ${location.description}`,
+    "url": `https://webifytech.netlify.app/locations/${location.slug}`,
+    "telephone": "+1-555-123-4567",
+    "priceRange": "$$$",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": location.city,
       "addressRegion": location.region,
       "addressCountry": "US"
     },
-    "url": `https://webify-tech.com/locations/${location.slug}`,
-    "telephone": "+1-555-123-4567",
-    "priceRange": "$$$",
     "areaServed": {
       "@type": "City",
       "name": location.city
-    }
+    },
+    "parentOrganization": {
+      "@id": "https://webifytech.netlify.app/#organization"
+    },
+    "knowsAbout": [
+      "Web Development",
+      "SEO",
+      "E-Commerce",
+      "UI/UX Design",
+      location.focus
+    ]
   };
 
   return (
