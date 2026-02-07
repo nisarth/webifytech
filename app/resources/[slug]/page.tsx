@@ -52,13 +52,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
 
-  // Parse markdown and resolve internal links
-  let htmlContent = "";
-  if (rawContent) {
-    htmlContent = parseMarkdown(rawContent);
-
-    // Dynamic Link Resolution: [LINK: slug-or-path]
-    htmlContent = htmlContent.replace(/\[LINK: (.*?)\]/g, (match, slug) => {
+  // Dynamic Link Resolution Generator
+  const resolveLinks = (text: string) => {
+    return text.replace(/\[LINK: (.*?)\]/g, (match, slug) => {
       // 1. Check if it's a known blog post slug
       const linkedPost = blogPosts.find(p => p.slug === slug);
       if (linkedPost) {
@@ -82,6 +78,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       // 3. Last fallback: return the slug as text if not found
       return slug;
     });
+  };
+
+  // Parse markdown and resolve internal links
+  let htmlContent = "";
+  if (rawContent) {
+    htmlContent = resolveLinks(parseMarkdown(rawContent));
   }
 
   const jsonLd = {
@@ -118,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       "name": f.question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": f.answer
+        "text": f.answer.replace(/\[LINK: (.*?)\]/g, "$1") // Clean links for JSON-LD
       }
     }))
   };
@@ -187,12 +189,32 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
           {rawContent ? (
             <div 
-              className="prose prose-lg max-w-none prose-headings:font-display"
+              className="prose prose-lg max-w-none prose-headings:font-display mb-20"
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
           ) : (
-            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--primary)] prose-p:text-[var(--muted)] prose-p:font-body prose-li:text-[var(--muted)] prose-li:font-body">
+            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-[var(--primary)] prose-p:text-[var(--muted)] prose-p:font-body prose-li:text-[var(--muted)] prose-li:font-body mb-20">
               <p>Content is loading or temporarily unavailable. Please check back soon.</p>
+            </div>
+          )}
+
+          {post.faq && post.faq.length > 0 && (
+            <div className="mt-20 pt-20 border-t border-[var(--primary)]/10">
+              <h2 className="text-3xl font-display font-bold text-[var(--primary)] mb-10 flex items-center gap-4">
+                <span className="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)]">?</span>
+                Common Questions
+              </h2>
+              <div className="space-y-8">
+                {post.faq.map((item, idx) => (
+                  <div key={idx} className="bg-white p-8 rounded-[32px] border border-[var(--primary)]/5 shadow-sm hover:shadow-md transition-shadow">
+                    <h3 className="text-xl font-display font-bold text-[var(--primary)] mb-4">{item.question}</h3>
+                    <div 
+                      className="text-[var(--muted)] font-body leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: resolveLinks(item.answer) }}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
