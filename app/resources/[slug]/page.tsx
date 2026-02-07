@@ -86,6 +86,31 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     htmlContent = resolveLinks(parseMarkdown(rawContent));
   }
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://webify-tech.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Resources",
+        "item": "https://webify-tech.com/resources"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://webify-tech.com/resources/${post.slug}`
+      }
+    ]
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -106,6 +131,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       }
     },
     "datePublished": post.date,
+    "dateModified": post.date,
+    "keywords": post.primaryKeyword + ", " + post.secondaryKeywords.join(", "),
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://webify-tech.com/resources/${post.slug}`
@@ -125,6 +152,39 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     }))
   };
 
+  // Extract How-To steps if they exist in the content
+  let howToJsonLd = null;
+  if (rawContent && (rawContent.includes("## How to") || rawContent.includes("## How-To"))) {
+    const lines = rawContent.split('\n');
+    const steps: { "@type": string; text: string }[] = [];
+    let inHowTo = false;
+    
+    for (const line of lines) {
+      if (line.startsWith("## How to") || line.startsWith("## How-To")) {
+        inHowTo = true;
+        continue;
+      }
+      if (inHowTo && line.match(/^\d+\.\s/)) {
+        steps.push({
+          "@type": "HowToStep",
+          "text": line.replace(/^\d+\.\s/, "").replace(/\[LINK: (.*?)\]/g, "$1").trim()
+        });
+      } else if (inHowTo && line.startsWith("##")) {
+        break; // End of section
+      }
+    }
+
+    if (steps.length > 0) {
+      howToJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": post.title,
+        "description": post.excerpt,
+        "step": steps
+      };
+    }
+  }
+
   const relatedPosts = blogPosts
     .filter(p => p.slug !== post.slug)
     .filter(p => p.category === post.category || p.secondaryKeywords.some(k => post.secondaryKeywords.includes(k)))
@@ -141,6 +201,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   return (
     <>
       <Script
+        id="breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Script
         id="blog-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -150,6 +215,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      {howToJsonLd && (
+        <Script
+          id="howto-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+        />
+      )}
       
       <Header />
       

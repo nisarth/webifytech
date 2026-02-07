@@ -6,18 +6,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://webifytech.netlify.app";
 
   const staticPages = [
-    "",
-    "/about",
-    "/services",
-    "/portfolio",
-    "/testimonials",
-    "/resources",
-    "/contact",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
+    { route: "", priority: 1, changefreq: "weekly" },
+    { route: "/services", priority: 0.9, changefreq: "monthly" },
+    { route: "/portfolio", priority: 0.9, changefreq: "weekly" },
+    { route: "/about", priority: 0.8, changefreq: "monthly" },
+    { route: "/testimonials", priority: 0.8, changefreq: "monthly" },
+    { route: "/resources", priority: 0.8, changefreq: "weekly" },
+    { route: "/contact", priority: 0.8, changefreq: "monthly" },
+  ].map((item) => ({
+    url: `${baseUrl}${item.route}`,
     lastModified: new Date(),
-    changeFrequency: (route === "" || route === "/portfolio" || route === "/resources" ? "weekly" : "monthly") as any,
-    priority: route === "" ? 1 : 0.8,
+    changeFrequency: item.changefreq as any,
+    priority: item.priority,
   }));
 
   const locationPages = locations.map((location) => ({
